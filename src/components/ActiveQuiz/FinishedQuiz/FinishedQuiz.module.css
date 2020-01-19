@@ -25,11 +25,3 @@
     color: rgba(240, 87, 108, .7)
 }
 
-Button {
-    border-radius: 3px;
-    border: 2px solid #fff;
-    background-color: transparent;
-    color: #fff;
-    box-sizing: border-box;
-    padding: 5px;
-}

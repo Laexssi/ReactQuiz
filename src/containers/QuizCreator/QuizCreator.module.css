@@ -1,0 +1,36 @@
+.QuizCreator {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+
+  padding-top: 5vh;
+  flex-grow: 1;
+  width: 100%;
+  background: linear-gradient(270deg, #f0613c 0%, #f0783c 100%);
+}
+
+.QuizCreator > div {
+  width: 100%;
+  max-width: 600px;
+  padding: 0 4vw;
+}
+
+.QuizCreator h1 {
+  text-align: center;
+}
+
+.QuizCreatot hr {
+  background-color: black;
+}
+
+.QuizCreator form {
+  background: #eee;
+  border-radius: 5px;
+  padding: 4vh 4vw;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 15px;
+}

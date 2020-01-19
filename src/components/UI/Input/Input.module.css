@@ -1,0 +1,30 @@
+.Input {
+  margin-bottom: 2vh;
+}
+
+.Input label {
+  display: block;
+  padding: 0;
+  margin-bottom: 1vh;
+  font-weight: bold;
+}
+
+.Input input {
+  display: block;
+  box-sizing: border-box;
+  border: 1px solid #bebebe;
+  padding: 2vh;
+  margin: 0 0 1vh;
+  width: 100%;
+  outline: none;
+  transition: all 300ms ease-in-out;
+}
+
+.Input span {
+  font-size: 12px;
+  font-weight: bold;
+  color: #2e2b2bbb;
+}
+.invalid {
+  color: darkgrey;
+}
