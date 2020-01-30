@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import classes from "./Auth.module.css";
 import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Input/Input";
+import { connect } from "react-redux";
+import { auth } from "../../store/actions/auth";
 
-export default class Auth extends Component {
+class Auth extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,12 +38,24 @@ export default class Auth extends Component {
       }
     };
   }
-  loginHandler = () => {};
+  loginHandler = () => {
+    this.props.auth(
+      this.state.formControls.email.value,
+      this.state.formControls.password.value,
+      true
+    );
+  };
 
-  signupHandler = () => {};
+  signupHandler = () => {
+    this.props.auth(
+      this.state.formControls.email.value,
+      this.state.formControls.password.value,
+      false
+    );
+  };
 
   submitHandler = e => {
-    e.preventdefault();
+    e.preventDefault();
   };
 
   validateControl(value, validation) {
@@ -139,3 +153,11 @@ function validateEmail(email) {
   var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    auth: (email, password, isLogin) => dispatch(auth(email, password, isLogin))
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Auth);

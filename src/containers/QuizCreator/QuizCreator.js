@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import classes from "./QuizCreator.module.css";
-// import Auxiliary from "./../../hoc/";
 import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Input/Input";
 import Select from "../../components/UI/Select/Select";
@@ -9,6 +8,13 @@ import {
   validate,
   validateForm
 } from "../../form/formFramework";
+
+import { connect } from "react-redux";
+import {
+  createQuizQuestion,
+  finishCreateQuiz,
+  onChangeQuizName
+} from "../../store/actions/create";
 
 function createOptionControl(number) {
   return createControl(
@@ -39,11 +45,10 @@ function createFormControls() {
   };
 }
 
-export default class QuizCreator extends Component {
+class QuizCreator extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      quiz: [],
       isFormValid: false,
       correctAnswerId: 1,
       formControls: createFormControls()
@@ -70,11 +75,15 @@ export default class QuizCreator extends Component {
     });
   };
 
+  onChangeNameHandler = e => {
+    console.log("change name");
+    this.setState({
+      quizName: e.target.value
+    });
+  };
+
   addQuestionHandler = e => {
     e.preventDefault();
-
-    const quiz = this.state.quiz.concat();
-    const index = quiz.length + 1;
 
     const {
       question,
@@ -86,8 +95,8 @@ export default class QuizCreator extends Component {
 
     const questionItem = {
       question: question.value,
-      id: index + 1,
-      rightAnswerId: this.state.rightAnswerId,
+      id: this.props.quiz.length + 1,
+      correctAnswerId: this.state.correctAnswerId,
       answers: [
         {
           text: option1.value,
@@ -107,9 +116,9 @@ export default class QuizCreator extends Component {
         }
       ]
     };
-    quiz.push(questionItem);
+
+    this.props.createQuizQuestion(questionItem);
     this.setState({
-      quiz,
       isFormValid: false,
       correctAnswerId: 1,
       formControls: createFormControls()
@@ -118,6 +127,13 @@ export default class QuizCreator extends Component {
 
   createQuizHandler = e => {
     e.preventDefault();
+
+    this.setState({
+      isFormValid: false,
+      correctAnswerId: 1,
+      formControls: createFormControls()
+    });
+    this.props.finishCreateQuiz();
   };
 
   renderInputs() {
@@ -168,25 +184,49 @@ export default class QuizCreator extends Component {
           <form onSubmit={this.submitHandler}>
             {this.renderInputs()}
             {select}
-
-            <Button
-              type="primary"
-              onClick={this.addQuestionHandler}
-              disabled={!this.state.isFormValid}
-            >
-              Add question
-            </Button>
-
-            <Button
-              type="primary"
-              onClick={this.createQuizHandler}
-              disabled={this.state.quiz.length === 0}
-            >
-              Create a quiz
-            </Button>
+            <div>
+              <Button
+                type="primary"
+                onClick={this.addQuestionHandler}
+                disabled={!this.state.isFormValid}
+              >
+                Add question
+              </Button>
+              <Input
+                key={`quizName`}
+                label={"Quiz name"}
+                value={this.props.quizName}
+                shouldValidate={false}
+                onChange={e => this.props.onChangeQuizName(e)}
+              />
+              <Button
+                type="primary"
+                onClick={this.createQuizHandler}
+                disabled={this.props.quiz.length === 0}
+              >
+                Create a quiz
+              </Button>
+            </div>
           </form>
         </div>
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    quiz: state.create.quiz,
+    quizName: state.create.quizName
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    createQuizQuestion: item => dispatch(createQuizQuestion(item)),
+    onChangeQuizName: value => dispatch(onChangeQuizName(value)),
+    finishCreateQuiz: name => dispatch(finishCreateQuiz(name))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuizCreator);
