@@ -1,18 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
+
 import Loader from "../../components/UI/Loader/Loader";
 import classes from "./QuizList.module.css";
+import QuizItem from "../../components/QuizItem/QuizItem";
 import { fetchQuizes } from "./../../store/actions/quiz";
 
 class QuizList extends Component {
-  rendreQuizes() {
-    return this.props.quizes.map(quiz => {
+  renderQuizes() {
+    return this.props.quizes.map((quiz, index) => {
       return (
         <li key={quiz.id}>
-          <NavLink to={`/quiz/${quiz.id}`}>
-            <h2>{quiz.name}</h2>
-          </NavLink>
+          <QuizItem
+            name={quiz.name}
+            number={index + 1}
+            author={quiz.author || "Anonymous"}
+            length={quiz.length}
+            id={quiz.id}
+          />
         </li>
       );
     });
@@ -29,7 +34,12 @@ class QuizList extends Component {
         {this.props.loading && this.props.quizes.length !== 0 ? (
           <Loader />
         ) : (
-          <ul>{this.rendreQuizes()}</ul>
+          <React.Fragment>
+            <ul>{this.renderQuizes()}</ul>
+            {!this.props.isAuthenticated && (
+              <p>Authenticated users have the right to edit quizes</p>
+            )}
+          </React.Fragment>
         )}
       </div>
     );
@@ -39,7 +49,8 @@ class QuizList extends Component {
 function mapStateToProps(state) {
   return {
     quizes: state.quiz.quizes,
-    loading: state.quiz.loading
+    loading: state.quiz.loading,
+    isAuthenticated: !!state.auth.token
   };
 }
 

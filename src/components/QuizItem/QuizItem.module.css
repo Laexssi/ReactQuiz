@@ -1,0 +1,40 @@
+.QuizItem {
+  background-color: white;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+  color: black;
+  padding: 20px;
+  margin: 15px;
+  width: 260px;
+  animation: appear 0.9s linear;
+  -webkit-animation: appear 0.9s linear;
+  transition: background-color 0.5s ease-in;
+  -webkit-transition: background-color 0.5s ease-in;
+  -moz-transition: background-color 0.5s ease-in;
+  -ms-transition: background-color 0.5s ease-in;
+  -o-transition: background-color 0.5s ease-in;
+  display: flex;
+  flex-direction: column;
+}
+
+.QuizItem ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.QuizItem ul li:nth-child(5) {
+  text-decoration: underline;
+}
+.QuizItem:nth-child(1) {
+  margin: 0;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

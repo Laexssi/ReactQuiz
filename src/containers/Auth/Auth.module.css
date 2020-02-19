@@ -4,23 +4,37 @@
   padding-top: 15vh;
   flex-grow: 1;
   width: 100%;
-  background: linear-gradient(270deg, #cef2fa 0%, #59bfef 100%);
+  background: #efeff1;
 }
 
 .Auth > div {
   width: 100%;
-  max-width: 600px;
+  max-width: 420px;
   padding: 0 20px;
 }
 
+.Auth button {
+  margin-right: 16px;
+}
+
 .Auth h1 {
-  color: #fff;
+  color: black;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.Auth p {
+  font-size: 14px;
   text-align: center;
 }
 
 .AuthForm {
-  background: #eee;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-  padding: 2vh;
-  border-radius: 5px;
+  background-color: white;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
 }

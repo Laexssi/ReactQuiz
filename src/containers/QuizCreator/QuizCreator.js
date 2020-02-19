@@ -13,13 +13,13 @@ import { connect } from "react-redux";
 import {
   createQuizQuestion,
   finishCreateQuiz,
-  onChangeQuizName
+  setQuizName
 } from "../../store/actions/create";
 
 function createOptionControl(number) {
   return createControl(
     {
-      label: `Option ${number}`,
+      label: `Type answer  #${number}`,
       errorMessage: "Can not be empty",
       id: number,
       value: ""
@@ -55,11 +55,13 @@ class QuizCreator extends Component {
     };
     this.renderInputs = this.renderInputs.bind(this);
     this.selectChangeHandler = this.selectChangeHandler.bind(this);
+    this.addQuestionHandler = this.addQuestionHandler.bind(this);
   }
   submitHandler = e => {
     e.preventDefault();
   };
   onChangeHandler = (e, formName) => {
+    console.log(formName);
     const formControls = { ...this.state.formControls };
     const control = { ...formControls[formName] };
 
@@ -76,10 +78,11 @@ class QuizCreator extends Component {
   };
 
   onChangeNameHandler = e => {
-    console.log("change name");
-    this.setState({
-      quizName: e.target.value
-    });
+    let { value } = e.target;
+    this.setState(prev => ({
+      ...prev,
+      quizName: value
+    }));
   };
 
   addQuestionHandler = e => {
@@ -118,6 +121,7 @@ class QuizCreator extends Component {
     };
 
     this.props.createQuizQuestion(questionItem);
+
     this.setState({
       isFormValid: false,
       correctAnswerId: 1,
@@ -127,32 +131,33 @@ class QuizCreator extends Component {
 
   createQuizHandler = e => {
     e.preventDefault();
-
+    this.props.setQuizName(this.state.quizName);
     this.setState({
       isFormValid: false,
       correctAnswerId: 1,
       formControls: createFormControls()
     });
+
     this.props.finishCreateQuiz();
   };
 
   renderInputs() {
     return Object.keys(this.state.formControls).map((name, index) => {
       const formName = this.state.formControls[name];
-      console.log(formName);
       return (
         <React.Fragment key={index}>
           <Input
             key={`${formName.label}-${index}`}
+            size={index === 0 ? 3 : 1}
             label={formName.label}
-            value={formName.value}
             valid={formName.valid}
+            value={formName.value}
             touched={formName.touched}
             shouldValidate={!!formName.validation}
             errorMessage={formName.errorMessage}
             onChange={e => this.onChangeHandler(e, name)}
           />
-          {index === 0 ? <hr /> : null}
+          {index === 0 ? <hr color="black" width="100%" /> : null}
         </React.Fragment>
       );
     });
@@ -180,8 +185,8 @@ class QuizCreator extends Component {
     return (
       <div className={classes.QuizCreator}>
         <div>
-          <h1>Create a quiz</h1>
           <form onSubmit={this.submitHandler}>
+            <h1>Create a quiz</h1>
             {this.renderInputs()}
             {select}
             <div>
@@ -195,9 +200,8 @@ class QuizCreator extends Component {
               <Input
                 key={`quizName`}
                 label={"Quiz name"}
-                value={this.props.quizName}
                 shouldValidate={false}
-                onChange={e => this.props.onChangeQuizName(e)}
+                onChange={e => this.onChangeNameHandler(e)}
               />
               <Button
                 type="primary"
@@ -224,7 +228,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     createQuizQuestion: item => dispatch(createQuizQuestion(item)),
-    onChangeQuizName: value => dispatch(onChangeQuizName(value)),
+    setQuizName: value => dispatch(setQuizName(value)),
     finishCreateQuiz: name => dispatch(finishCreateQuiz(name))
   };
 }

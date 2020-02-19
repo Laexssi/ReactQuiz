@@ -1,6 +1,6 @@
 import {
   CREATE_QUIZ_QUESTION,
-  ON_CHANGE_QUIZ_NAME,
+  SET_QUIZ_NAME,
   RESET_QUIZ_CREATION
 } from "./actionTypes";
 import axios from "../../axios/axios-quiz";
@@ -12,10 +12,10 @@ export function createQuizQuestion(item) {
   };
 }
 
-export function onChangeQuizName(e) {
+export function setQuizName(name) {
   return {
-    type: ON_CHANGE_QUIZ_NAME,
-    e
+    type: SET_QUIZ_NAME,
+    name
   };
 }
 

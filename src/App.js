@@ -10,31 +10,32 @@ import Auth from "./containers/Auth/Auth";
 import { connect } from "react-redux";
 import Logout from "./components/Logout/Logout.js";
 import { autoLogin } from "./store/actions/auth.js";
+import EditQuiz from "./containers/EditQuiz/EditQuiz";
 
 class App extends Component {
   componentDidMount() {
-    console.log(localStorage);
-    console.log(this.props.token);
     this.props.autoLogin();
   }
   render() {
     let routes = (
       <Switch>
         <Route path="/auth" component={Auth} />
-        <Route path="/quiz/:id" component={Quiz} />
-        <Route path="/" exact component={QuizList} />
-        <Redirect to="/" />
+
+        <Route path="/quiz/:id/" component={Quiz} />
+
+        <Route path="/list" exact component={QuizList} />
+        <Redirect to="/list" />
       </Switch>
     );
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
-          <Route path="/quiz-creator" component={QuizCreator} />
+          <Route path="/quiz-creator" exact component={QuizCreator} />
           <Route path="/quiz/:id" component={Quiz} />
-
-          <Route path="/logout" component={Logout} />
-          <Route path="/" exact component={QuizList} />
-          <Redirect to="/" />
+          <Route path="/list/:id" component={EditQuiz} />
+          <Route path="/logout" exact component={Logout} />
+          <Route path="/list" exact component={QuizList} />
+          <Redirect to="/list" />
         </Switch>
       );
     }

@@ -7,7 +7,8 @@ import {
   QUIZ_SET_ANSWER,
   QUIZ_FINISH,
   QUIZ_NEXT,
-  QUIZ_RETRY
+  QUIZ_RETRY,
+  EDIT_QUIZ
 } from "./actionTypes";
 
 export function fetchQuizes() {
@@ -15,13 +16,14 @@ export function fetchQuizes() {
     dispatch(fetchQuizesStart());
     try {
       const response = await axios.get("/quizes/.json");
-      console.log(response.data);
+
       const quizes = [];
-      Object.keys(response.data).forEach((key, index) => {
-        console.log(key);
+      Object.keys(response.data).forEach(key => {
         quizes.push({
           id: key,
-          name: `${response.data[key].quizName}`
+          name: `${response.data[key].quizName}`,
+          length: +response.data[key].length,
+          author: `${response.data[key].author}`
         });
       });
       console.log(quizes);
@@ -47,6 +49,19 @@ export function fetchQuizById(quizId) {
   };
 }
 
+export function postQuiz(id) {
+  return async (dispatch, getState) => {
+    console.log("post quiz");
+    console.log(id);
+    await axios.put(`/quizes/${id}/quiz.json`, getState().quiz.quiz);
+  };
+}
+export function editQuiz(item) {
+  return {
+    type: EDIT_QUIZ,
+    item
+  };
+}
 export function fetchQuizSucces(quiz) {
   return {
     type: FETCH_QUIZ_SUCCES,

@@ -1,12 +1,14 @@
 import {
   CREATE_QUIZ_QUESTION,
-  ON_CHANGE_QUIZ_NAME,
+  SET_QUIZ_NAME,
   RESET_QUIZ_CREATION
 } from "../actions/actionTypes";
 
 const initialState = {
   quiz: [],
-  quizName: ""
+  quizName: "",
+  author: "",
+  length: 0
 };
 
 export default function createReducer(state = initialState, action) {
@@ -14,12 +16,14 @@ export default function createReducer(state = initialState, action) {
     case CREATE_QUIZ_QUESTION:
       return {
         ...state,
-        quiz: [...state.quiz, action.item]
+        quiz: [...state.quiz, action.item],
+        author: localStorage.getItem("email"),
+        length: state.length + 1
       };
-    case ON_CHANGE_QUIZ_NAME:
+    case SET_QUIZ_NAME:
       return {
         ...state,
-        quizName: action.e.target.value
+        quizName: action.name
       };
     case RESET_QUIZ_CREATION:
       return {

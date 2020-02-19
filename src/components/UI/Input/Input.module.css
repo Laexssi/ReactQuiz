@@ -1,11 +1,12 @@
 .Input {
-  margin-bottom: 2vh;
+  margin-bottom: 24px;
+  position: relative;
 }
 
 .Input label {
   display: block;
   padding: 0;
-  margin-bottom: 1vh;
+  margin-bottom: 10px;
   font-weight: bold;
 }
 
@@ -13,8 +14,8 @@
   display: block;
   box-sizing: border-box;
   border: 1px solid #bebebe;
-  padding: 2vh;
-  margin: 0 0 1vh;
+  padding: 15px;
+  margin: 15px 0 40px 0;
   width: 100%;
   outline: none;
   transition: all 300ms ease-in-out;
@@ -24,6 +25,8 @@
   font-size: 12px;
   font-weight: bold;
   color: #2e2b2bbb;
+  position: absolute;
+  top: 100px;
 }
 .invalid {
   color: darkgrey;

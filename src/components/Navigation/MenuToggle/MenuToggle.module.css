@@ -1,19 +1,49 @@
 .MenuToggle {
-    position: fixed;
-    top: 40px;
-    left: 40px;
-    font-size: 20px;
-    cursor: pointer;
-    color: #fff;
-    transition: opacity, left .22s ease-in;
-    
-    z-index: 100;
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  font-size: 32px;
+  cursor: pointer;
+  color: black;
+  transition: opacity, left 0.32s ease-in;
+  -webkit-animation-name: shake;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: 3;
+  -webkit-animation-timing-function: cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  -webkit-animation-delay: 5s;
+  z-index: 100;
+  will-change: transform;
+  -webkit-perspective: 1000;
+  -webkit-backface-visibility: hidden;
 }
 
 .MenuToggle:hover {
-    opacity: .7;
+  opacity: 0.7;
 }
 
 .MenuToggle.open {
-    left: 320px;
+  left: 320px;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    -webkit-transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    -webkit-transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
 }

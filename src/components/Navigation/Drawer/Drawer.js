@@ -24,6 +24,7 @@ class Drawer extends Component {
             className={classes.active}
             onClick={this.clickHandler}
           >
+            <i className={`fa ${link.icon}`}></i>
             {link.label}
           </NavLink>
         </li>
@@ -36,9 +37,10 @@ class Drawer extends Component {
     if (!this.props.isOpen) cls.push(classes.close);
     const links = [
       {
-        to: "/",
+        to: "/list",
         label: "List",
-        exact: true
+        exact: true,
+        icon: "fa-list"
       }
     ];
 
@@ -47,19 +49,22 @@ class Drawer extends Component {
         {
           to: "/quiz-creator",
           label: "Create a quiz",
-          exact: false
+          exact: false,
+          icon: "fa-cogs"
         },
         {
           to: "/logout",
           label: "Logout",
-          exact: false
+          exact: false,
+          icon: "fa-sign-out"
         }
       );
     } else {
       links.push({
         to: "/auth",
         label: "Authorization",
-        exact: false
+        exact: false,
+        icon: "fa-sign-in"
       });
     }
     return (

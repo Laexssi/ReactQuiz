@@ -17,11 +17,17 @@ export function auth(email, password, isLogin) {
     }
     const response = await axios.post(url, authData);
     console.log(response.data);
-    const { idToken, localId, expiresIn } = response.data;
+    const {
+      idToken,
+      localId,
+      expiresIn,
+      email: confirmedEmail
+    } = response.data;
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
 
     localStorage.setItem("token", idToken);
     localStorage.setItem("userId", localId);
+    localStorage.setItem("email", confirmedEmail);
     localStorage.setItem("expirationDate", expirationDate);
 
     dispatch(authSucces(idToken));
@@ -30,6 +36,7 @@ export function auth(email, password, isLogin) {
 }
 export function logout() {
   localStorage.removeItem("token");
+  localStorage.removeItem("email");
   localStorage.removeItem("userId");
   localStorage.removeItem("expirationDate");
   return {
@@ -37,6 +44,7 @@ export function logout() {
   };
 }
 export function autoLogout(time) {
+  console.log("autoLogout after " + time * 1000 + " ms");
   return dispatch => {
     setTimeout(() => {
       dispatch(logout());

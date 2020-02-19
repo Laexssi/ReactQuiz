@@ -121,26 +121,28 @@ class Auth extends Component {
     return (
       <div className={classes.Auth}>
         <div>
-          <h1>Authorization</h1>
-
           <form onSubmit={this.submitHandler} className={classes.AuthForm}>
+            <h1>Authorization</h1>
+
             {this.renderInputs()}
+            <div className={classes.wrapper}>
+              <Button
+                type="correct"
+                onClick={this.loginHandler}
+                disabled={!this.state.isFormValid}
+              >
+                Login
+              </Button>
 
-            <Button
-              type="correct"
-              onClick={this.loginHandler}
-              disabled={!this.state.isFormValid}
-            >
-              Login
-            </Button>
-
-            <Button
-              type="primary"
-              onClick={this.signupHandler}
-              disabled={!this.state.isFormValid}
-            >
-              Sign up
-            </Button>
+              <Button
+                type="primary"
+                onClick={this.signupHandler}
+                disabled={!this.state.isFormValid}
+              >
+                Sign up
+              </Button>
+            </div>
+            <p>Authenticated users can create and edit quizzes</p>
           </form>
         </div>
       </div>

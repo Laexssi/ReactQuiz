@@ -1,33 +1,56 @@
 .QuizList {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
-
   align-items: center;
   justify-content: flex-start;
   padding-top: 15vh;
   flex-grow: 1;
   width: 100%;
-  background: linear-gradient(90deg, #fd8355 0%, #f0576c 37%, #f79cbd 100%);
+  background: #d4d9e9;
 }
 
 .QuizList h1 {
-  color: #fff;
+  color: black;
 }
 
 .QuizList ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+
+  max-width: 720px;
 }
 
 .QuizList li {
-  margin-bottom: 2vh;
+  margin-bottom: 24px;
+  margin-right: 12px;
+  margin-left: 12px;
+}
+
+.QuizList li button a {
+  text-decoration: none;
+  color: #fff;
 }
 
 .QuizList li a {
   text-decoration: none;
-  color: #fff;
+  color: black;
 }
-.QuizList li a:hover {
+.QuizList li > a:hover {
   color: #363f54;
+}
+
+@media screen and (max-width: 376px) {
+  .QuizList ul {
+    width: 100%;
+    justify-content: space-around;
+  }
+  .QuizList li {
+    margin-right: 0px;
+    margin-left: 0px;
+  }
 }

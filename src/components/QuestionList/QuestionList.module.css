@@ -1,0 +1,22 @@
+.QuestionList ul {
+  list-style: none;
+  display: flex;
+  padding: 0px;
+}
+
+.QuestionList ul li {
+  display: inline-block;
+  border: 1px solid black;
+  padding: 5px 10px;
+  margin-right: 5px;
+}
+.QuestionList ul li:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.active {
+  background-color: #58b3e2;
+  color: white;
+  border-color: #58b3e2 !important;
+}

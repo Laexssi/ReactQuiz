@@ -21,22 +21,11 @@ const FinishedQuiz = props => {
           return (
             <li key={index}>
               <strong>{index + 1}</strong>&nbsp;
-              {item.question}
+              {item.question} ({item.answers[item.correctAnswerId - 1].text})
               <i className={cls.join(" ")} />
             </li>
           );
         })}
-
-        {/* <li>
-                    <strong>1. </strong>
-                    ??????
-                    <i className = {'fa - fa-times ' + classes.incorrect} />
-                </li>
-                <li>
-                    <strong>1. </strong>
-                    ??????
-                    <i className = {'fa - fa-check ' + classes.correct} />
-                </li> */}
       </ul>
 
       <p>
@@ -44,9 +33,11 @@ const FinishedQuiz = props => {
       </p>
 
       <div>
-        <Button onClick={props.onRetry}>Repeat</Button>
-        <Link to="/">
-          <Button>try another quiz</Button>
+        <Button onClick={props.onRetry} type="primary">
+          Repeat
+        </Button>
+        <Link to="/list">
+          <Button type="secondary">try another quiz</Button>
         </Link>
       </div>
     </div>
