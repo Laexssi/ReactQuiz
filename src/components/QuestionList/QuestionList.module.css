@@ -1,14 +1,20 @@
 .QuestionList ul {
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
   padding: 0px;
 }
 
 .QuestionList ul li {
   display: inline-block;
   border: 1px solid black;
+  box-sizing: border-box;
+  min-width: 45px;
+  min-height: auto;
   padding: 5px 10px;
   margin-right: 5px;
+  margin-bottom: 5px;
+  text-align: center;
 }
 .QuestionList ul li:hover {
   cursor: pointer;

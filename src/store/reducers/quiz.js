@@ -7,7 +7,8 @@ import {
   QUIZ_FINISH,
   QUIZ_NEXT,
   QUIZ_RETRY,
-  EDIT_QUIZ
+  EDIT_QUIZ,
+  ADD_QUESTION
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -75,6 +76,12 @@ export default function quizReducer(state = initialState, action) {
       return {
         ...state,
         quiz: action.item
+      };
+    }
+    case ADD_QUESTION: {
+      return {
+        ...state,
+        quiz: [...state.quiz, action.item]
       };
     }
 

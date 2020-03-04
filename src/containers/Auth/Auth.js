@@ -125,6 +125,7 @@ class Auth extends Component {
             <h1>Authorization</h1>
 
             {this.renderInputs()}
+
             <div className={classes.wrapper}>
               <Button
                 type="correct"
@@ -142,6 +143,9 @@ class Auth extends Component {
                 Sign up
               </Button>
             </div>
+            {this.props.isFailed && (
+              <p className={classes.fail}>Incorrect e-mail or password</p>
+            )}
             <p>Authenticated users can create and edit quizzes</p>
           </form>
         </div>
@@ -155,6 +159,11 @@ function validateEmail(email) {
   var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
+function mapStateToProps(state) {
+  return {
+    isFailed: state.auth.isFailed
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -162,4 +171,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

@@ -1,7 +1,8 @@
-import { AUTH_SUCCES, AUTH_LOGOUT } from "../actions/actionTypes";
+import { AUTH_SUCCES, AUTH_LOGOUT, AUTH_FAIL } from "../actions/actionTypes";
 
 const initialState = {
-  token: localStorage.getItem("token") || null
+  token: localStorage.getItem("token") || null,
+  isFailed: false
 };
 
 export default function authReducer(state = initialState, action) {
@@ -9,8 +10,15 @@ export default function authReducer(state = initialState, action) {
     case AUTH_SUCCES:
       return {
         ...state,
+        isFailed: false,
         token: action.token
       };
+    case AUTH_FAIL: {
+      return {
+        ...state,
+        isFailed: true
+      };
+    }
     case AUTH_LOGOUT:
       return {
         ...state,

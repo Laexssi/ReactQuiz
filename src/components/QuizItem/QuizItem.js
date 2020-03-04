@@ -11,7 +11,7 @@ export const QuizItem = ({ name, number, author, length, id }) => {
         <li>
           <h3> {name}</h3>
         </li>
-        <li>Number of questions: {length}</li>
+
         <li>
           Quiz by <b>{author}</b>
         </li>

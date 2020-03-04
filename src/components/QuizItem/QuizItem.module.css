@@ -23,11 +23,15 @@
   justify-content: flex-start;
   align-items: flex-start;
 }
-.QuizItem ul li:nth-child(5) {
+.QuizItem ul li:nth-child(4) {
   text-decoration: underline;
 }
 .QuizItem:nth-child(1) {
   margin: 0;
+}
+
+.QuizItem button {
+  margin-left: 12px;
 }
 
 @keyframes appear {

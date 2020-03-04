@@ -15,7 +15,6 @@ class QuizList extends Component {
             name={quiz.name}
             number={index + 1}
             author={quiz.author || "Anonymous"}
-            length={quiz.length}
             id={quiz.id}
           />
         </li>

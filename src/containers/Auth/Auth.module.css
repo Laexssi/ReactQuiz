@@ -28,6 +28,10 @@
   text-align: center;
 }
 
+.fail {
+  color: #d95e37;
+}
+
 .AuthForm {
   background-color: white;
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);

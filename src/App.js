@@ -24,7 +24,7 @@ class App extends Component {
         <Route path="/quiz/:id/" component={Quiz} />
 
         <Route path="/list" exact component={QuizList} />
-        <Redirect to="/list" />
+        <Redirect to="/auth" />
       </Switch>
     );
     if (this.props.isAuthenticated) {

@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchQuizById, editQuiz, postQuiz } from "../../store/actions/quiz";
+import {
+  fetchQuizById,
+  editQuiz,
+  postQuiz,
+  addQuestion
+} from "../../store/actions/quiz";
 import classes from "./EditQuiz.module.css";
 import {
   createControl,
@@ -137,6 +142,35 @@ class EditQuiz extends Component {
       correctAnswerId: +e.target.value
     });
   };
+
+  addQuestionHandler = e => {
+    e.preventDefault();
+    const questionItem = {
+      question: "Empty question, please fill it via edit quiz",
+      id: this.props.quiz.length + 1,
+      correctAnswerId: this.state.correctAnswerId,
+      answers: [
+        {
+          text: "Empty option, please fill it via edit quiz",
+          id: 1
+        },
+        {
+          text: "Empty option, please fill it via edit quiz",
+          id: 2
+        },
+        {
+          text: "Empty option, please fill it via edit quiz",
+          id: 3
+        },
+        {
+          text: "Empty option, please fill it via edit quiz",
+          id: 4
+        }
+      ]
+    };
+
+    this.props.addQuestion(questionItem);
+  };
   editQuestionHandler = e => {
     e.preventDefault();
 
@@ -206,10 +240,10 @@ class EditQuiz extends Component {
     return (
       <div className={classes.EditQuiz}>
         <div>
-          <form onClick={this.submitHandler}>
-            {this.props.loading || !this.props.quiz ? (
-              <Loader />
-            ) : (
+          {this.props.loading || !this.props.quiz ? (
+            <Loader />
+          ) : (
+            <form onClick={this.submitHandler}>
               <React.Fragment>
                 <h3>Quiz {this.quizName}</h3>
                 <p>Choose question number</p>
@@ -218,6 +252,11 @@ class EditQuiz extends Component {
                   onClick={this.switchQuestionHandler}
                   currentQuiz={this.state.currentQuiz}
                 />
+                <div>
+                  <Button type="secondary" onClick={this.addQuestionHandler}>
+                    add new question
+                  </Button>
+                </div>
 
                 {this.renderInputs()}
                 <p>
@@ -227,7 +266,8 @@ class EditQuiz extends Component {
                 <Select
                   label="Edit right answer"
                   value={
-                    this.props.quiz[this.state.currentQuiz].correctAnswerId || 1
+                    this.state.correctAnswerId ||
+                    this.props.quiz[this.state.currentQuiz].correctAnswerId
                   }
                   onChange={this.selectChangeHandler}
                   options={[
@@ -243,8 +283,8 @@ class EditQuiz extends Component {
                   </Button>
                 </div>
               </React.Fragment>
-            )}
-          </form>
+            </form>
+          )}
         </div>
       </div>
     );
@@ -261,7 +301,8 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchQuizById: quizId => dispatch(fetchQuizById(quizId)),
     editQuiz: quiz => dispatch(editQuiz(quiz)),
-    postQuiz: id => dispatch(postQuiz(id))
+    postQuiz: id => dispatch(postQuiz(id)),
+    addQuestion: question => dispatch(addQuestion(question))
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(EditQuiz);

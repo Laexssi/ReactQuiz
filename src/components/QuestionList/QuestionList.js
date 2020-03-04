@@ -8,12 +8,12 @@ const QuestionList = props => {
   return (
     <div className={cls.join(" ")}>
       <ul>
-        {Object.keys(quiz).map((key, index) => {
+        {Object.keys(quiz).map((_, index) => {
           const active = currentQuiz === index ? classes.active : "";
 
           return (
             <li key={index} onClick={props.onClick} className={active}>
-              {+key + 1}
+              {+index + 1}
             </li>
           );
         })}

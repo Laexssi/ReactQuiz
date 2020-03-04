@@ -8,7 +8,8 @@ import {
   QUIZ_FINISH,
   QUIZ_NEXT,
   QUIZ_RETRY,
-  EDIT_QUIZ
+  EDIT_QUIZ,
+  ADD_QUESTION
 } from "./actionTypes";
 
 export function fetchQuizes() {
@@ -54,6 +55,13 @@ export function postQuiz(id) {
     console.log("post quiz");
     console.log(id);
     await axios.put(`/quizes/${id}/quiz.json`, getState().quiz.quiz);
+  };
+}
+
+export function addQuestion(item) {
+  return {
+    type: ADD_QUESTION,
+    item
   };
 }
 export function editQuiz(item) {

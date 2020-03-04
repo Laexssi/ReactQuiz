@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AUTH_SUCCES, AUTH_LOGOUT } from "./actionTypes";
+import { AUTH_SUCCES, AUTH_LOGOUT, AUTH_FAIL } from "./actionTypes";
 
 export function auth(email, password, isLogin) {
   return async dispatch => {
@@ -15,23 +15,28 @@ export function auth(email, password, isLogin) {
       url =
         "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBu-e-uM2iKpQFrJFgHsT-XYeUdncBcHbA";
     }
-    const response = await axios.post(url, authData);
-    console.log(response.data);
-    const {
-      idToken,
-      localId,
-      expiresIn,
-      email: confirmedEmail
-    } = response.data;
-    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+    try {
+      var response = await axios.post(url, authData);
+      console.log(response.data);
 
-    localStorage.setItem("token", idToken);
-    localStorage.setItem("userId", localId);
-    localStorage.setItem("email", confirmedEmail);
-    localStorage.setItem("expirationDate", expirationDate);
+      const {
+        idToken,
+        localId,
+        expiresIn,
+        email: confirmedEmail
+      } = response.data;
+      const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
 
-    dispatch(authSucces(idToken));
-    dispatch(autoLogout(expiresIn));
+      localStorage.setItem("token", idToken);
+      localStorage.setItem("userId", localId);
+      localStorage.setItem("email", confirmedEmail);
+      localStorage.setItem("expirationDate", expirationDate);
+
+      dispatch(authSucces(idToken));
+      dispatch(autoLogout(expiresIn));
+    } catch (e) {
+      dispatch(authFailed());
+    }
   };
 }
 export function logout() {
@@ -41,6 +46,12 @@ export function logout() {
   localStorage.removeItem("expirationDate");
   return {
     type: AUTH_LOGOUT
+  };
+}
+
+export function authFailed() {
+  return {
+    type: AUTH_FAIL
   };
 }
 export function autoLogout(time) {

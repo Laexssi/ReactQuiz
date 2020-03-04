@@ -7,8 +7,7 @@ import {
 const initialState = {
   quiz: [],
   quizName: "",
-  author: "",
-  length: 0
+  author: ""
 };
 
 export default function createReducer(state = initialState, action) {
@@ -17,8 +16,7 @@ export default function createReducer(state = initialState, action) {
       return {
         ...state,
         quiz: [...state.quiz, action.item],
-        author: localStorage.getItem("email"),
-        length: state.length + 1
+        author: localStorage.getItem("email")
       };
     case SET_QUIZ_NAME:
       return {

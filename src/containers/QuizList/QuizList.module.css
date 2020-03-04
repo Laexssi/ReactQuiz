@@ -19,8 +19,8 @@
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-around;
+  align-items: flex-start;
+  justify-content: flex-start;
 
   max-width: 720px;
 }
